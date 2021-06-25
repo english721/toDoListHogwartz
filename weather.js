@@ -1,46 +1,25 @@
-const API_KEY = "2caf1daeadfba451f332bd393d6144ba";
-const COORDS = 'coords';
 
-function getWeather(lat, lng){
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}$lon=${lng}$appid=${API_KEY}`)
+const API_KEY = '2caf1daeadfba451f332bd393d6144ba';
+
+
+function onGeoOk(position){
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude ;
+    console.log("You live in", lat, lng)
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`;
+    fetch(url).then((response) => response.json()).then((data) => {
+        const weather = document. querySelector("#weather span:first-child");
+        const city = document.querySelector("#weather span:last-child");
+        const iconElement = document.querySelector(".weather-icon");
+        weather.iconId = data.weather[0].icon;
+        city.innerText= data.name;
+        weather.innerText= `${data.weather[0].main} / ${data.main.temp}°C`;
+        iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
+    });
 }
 
-function saveCoords(coordsObj){
-    localStorage.setItem(COORDS, JSON.stringify(coordsObj));
+function onGeoError(){
+    alert("당신의 위치를 파악하지 못하여 날씨를 알려드리지 못합니다.")
 }
 
-function handleGeoSuccess(position){
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    const coordsObj = {
-        latitude,
-        longitude
-    };
-    saveCoords(coordsObj);
-    getWeather(latitude, longitude)
-}
-
-function handleGeoError(){
-    console.log("Cant access geo location");
-}
-
-function askForCoords(){
-    navigator.geolocation.getCurrentPosition(handleGeoSuccess, handleGeoError)
-}
-
-
-function loadCoords(){
-    const loadedCoords = localStorage.getItem(COORDS);
-    if(loadedCoords === null){
-        askForCoords();
-    } else {
-        const parsedCoords = JSON.parse(loadedCoords);
-        getWeather(parsedCoords.latitude, parsedCoords.longitude);
-    }
-}
-
-function init(){
-    loadCoords();
-}
-
-init();
+navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
