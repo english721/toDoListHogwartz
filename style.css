@@ -3,7 +3,7 @@ body{
   }
   
 .btn {
-  cursor: pointer;
+    cursor: pointer;
 }
 
  body {
@@ -15,8 +15,27 @@ body{
    text-align: right;
  }
 
+ #weather{
+   text-align: right;
+   font-family: "MARUBuriBeta-Regular";
+   color: #9c88ff
+ }
+
+ .weather-icon{
+  width: 100px;
+  height: 43px;  
+}
+
+.weather-icon img{
+  position: absolute;
+  margin: 0 auto;
+  width: 50px;
+  top: 100px;
+  right: 180px;
+}
+
   h1 {
-    font-size: 80pt;
+    font-size: 100pt;
     text-align: center;
     font-family: "YasashiiW01-Bold";
   }
