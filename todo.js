@@ -21,7 +21,7 @@ function deleteToDo(event){
 }
 
 
-function showAwesome(){
+function showAwesome(event){
     alert("you are awesome");
 
 }
