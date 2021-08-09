@@ -21,6 +21,11 @@ function deleteToDo(event){
 }
 
 
+function showAwesome(){
+    alert("you are awesome");
+
+}
+
 function saveToDos() {
     localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
 }
@@ -33,7 +38,7 @@ function paintToDo(text){
     const newId = toDos.length + 1;
     delBtn.innerText = "🙅🏻‍♀️";
     delBtn.addEventListener("click", deleteToDo);
-    delBtn.addEventListener("click", alert("you are awesome!");
+    delBtn.addEventListener("click", showAwesome);
     span.innerText = text;
     li.appendChild(delBtn);
     li.appendChild(span);
